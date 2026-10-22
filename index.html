@@ -10,14 +10,23 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --cream: #F2EDE4;
-  --parchment: #EAE3D6;
-  --sand: #D9CFC0;
-  --tan: #C4B49A;
-  --bark: #8C7A63;
-  --walnut: #5A4A38;
-  --espresso: #2E2318;
-  --ink: #1A1410;
+  /* Light surfaces */
+  --cream: #F5F0E8;        /* page background */
+  --parchment: #EDE6D8;    /* card / alt section */
+  --sand: #D6CCBA;         /* borders, dividers */
+  --tan: #C09A6B;          /* warm gold accent */
+  --bark: #8A6E52;         /* muted label on light */
+  --walnut: #3D2E1E;       /* deep brown — headings on light, bg for mid-dark */
+  --espresso: #1C1410;     /* body text on light */
+
+  /* Warm dark surfaces — walnut/bark family, never black */
+  --dark-bg: #2A1F14;      /* darkest section bg — deep warm brown */
+  --dark-surface: #352618; /* slightly lighter panel surface */
+  --dark-border: #4E3A28;  /* visible border on dark */
+  --dark-muted: #8A7060;   /* muted text / labels on dark */
+  --dark-text: #E8DDD0;    /* body text on dark */
+  --dark-heading: #F5EFE5; /* headlines on dark */
+
   --natural-swatch: #D6C9AE;
   --black-swatch: #2A2A2A;
   --navy-swatch: #1B2A3B;
@@ -39,8 +48,8 @@ body {
 
 /* ── ANNOUNCEMENT BAR ── */
 .announce {
-  background: var(--espresso);
-  color: var(--sand);
+  background: var(--dark-bg);
+  color: var(--dark-text);
   text-align: center;
   padding: 10px 16px;
   font-size: 11px;
@@ -130,16 +139,17 @@ nav {
 
 /* ── HERO ── */
 .hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 88vh;
+  display: block;
+  min-height: unset;
 }
 
 .hero-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 80px 64px 80px 56px;
+  align-items: center;
+  text-align: center;
+  padding: 100px 56px;
   background: var(--parchment);
 }
 
@@ -166,12 +176,14 @@ nav {
 }
 
 .hero-body {
-  font-size: 15px;
-  line-height: 1.65;
+  font-size: 12px;
+  line-height: 1.8;
   color: var(--walnut);
-  max-width: 380px;
+  max-width: 520px;
   margin-bottom: 36px;
-  font-weight: 300;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
 .hero-actions {
@@ -180,12 +192,18 @@ nav {
   align-items: center;
   flex-wrap: wrap;
 }
+.hero-actions .btn-primary,
+.hero-actions .btn-ghost {
+  flex: 1 1 0;
+  max-width: 220px;
+  text-align: center;
+}
 
 .btn-primary {
-  background: var(--espresso);
-  color: var(--cream);
+  background: #C8A97A;
+  color: var(--espresso);
   border: none;
-  padding: 14px 32px;
+  padding: 16px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   letter-spacing: 0.18em;
@@ -195,12 +213,12 @@ nav {
   border-radius: var(--radius);
 }
 
-.btn-primary:hover { background: var(--walnut); }
+.btn-primary:hover { background: var(--tan); }
 
 .btn-ghost {
   background: none;
   border: 1px solid var(--tan);
-  padding: 14px 28px;
+  padding: 16px 36px;
   font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   letter-spacing: 0.18em;
@@ -214,7 +232,7 @@ nav {
 .btn-ghost:hover { border-color: var(--walnut); color: var(--walnut); }
 
 .hero-visual {
-  background: var(--walnut);
+  background: var(--dark-surface);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -267,8 +285,8 @@ nav {
 
 .hero-launch-badge {
   display: inline-block;
-  background: var(--espresso);
-  color: var(--sand);
+  background: var(--dark-border);
+  color: var(--dark-text);
   padding: 6px 14px;
   font-size: 9px;
   letter-spacing: 0.2em;
@@ -279,8 +297,8 @@ nav {
 
 /* ── HERO PRODUCT CONFIGURATOR ── */
 .hero-configurator {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--dark-border);
   border-radius: 4px;
   padding: 20px;
   width: 100%;
@@ -291,7 +309,7 @@ nav {
 .hero-config-name {
   font-family: 'DM Serif Display', serif;
   font-size: 17px;
-  color: var(--cream);
+  color: #CBBC9F;
   margin-bottom: 2px;
 }
 
@@ -306,7 +324,7 @@ nav {
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--bark);
+  color: var(--dark-muted);
   margin-bottom: 10px;
   font-weight: 400;
 }
@@ -321,7 +339,7 @@ nav {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.15);
+  border: 2px solid var(--dark-border);
   cursor: pointer;
   position: relative;
   transition: transform 0.15s, border-color 0.15s;
@@ -330,13 +348,13 @@ nav {
 .hero-swatch:hover { transform: scale(1.1); }
 
 .hero-swatch.active {
-  border-color: var(--cream);
-  box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
+  border-color: var(--tan);
+  box-shadow: 0 0 0 2px rgba(184,155,114,0.35);
 }
 
 .hero-swatch-name {
   font-size: 12px;
-  color: var(--sand);
+  color: var(--dark-text);
   margin-bottom: 14px;
   font-weight: 300;
   min-height: 18px;
@@ -351,9 +369,9 @@ nav {
 }
 
 .hero-size-btn {
-  background: rgba(255,255,255,0.07);
-  border: 1px solid rgba(255,255,255,0.12);
-  color: var(--sand);
+  background: transparent;
+  border: 1px solid var(--dark-border);
+  color: var(--espresso);
   font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   letter-spacing: 0.1em;
@@ -364,20 +382,21 @@ nav {
 }
 
 .hero-size-btn:hover {
-  background: rgba(255,255,255,0.14);
-  border-color: rgba(255,255,255,0.3);
+  border-color: var(--tan);
+  color: var(--walnut);
+  background: rgba(255,255,255,0.06);
 }
 
 .hero-size-btn.active {
-  background: var(--cream);
-  border-color: var(--cream);
-  color: var(--espresso);
+  background: var(--tan);
+  border-color: var(--tan);
+  color: var(--cream);
 }
 
 .hero-add-btn {
   width: 100%;
-  background: var(--cream);
-  color: var(--espresso);
+  background: var(--tan);
+  color: var(--dark-bg);
   border: none;
   padding: 13px;
   font-family: 'DM Sans', sans-serif;
@@ -391,20 +410,21 @@ nav {
 }
 
 .hero-add-btn:hover {
-  background: var(--tan);
+  background: var(--cream);
+  color: var(--espresso);
 }
 
 /* ── PILLARS BAR ── */
 .pillars {
-  background: var(--espresso);
+  background: var(--dark-bg);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid var(--dark-border);
 }
 
 .pillar {
   padding: 28px 24px;
-  border-right: 1px solid rgba(255,255,255,0.07);
+  border-right: 1px solid var(--dark-border);
   text-align: center;
 }
 
@@ -422,7 +442,7 @@ nav {
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--bark);
+  color: var(--dark-text);
   font-weight: 400;
 }
 
@@ -573,7 +593,9 @@ nav {
 
 /* ── MARQUEE ── */
 .marquee-wrap {
-  background: var(--walnut);
+  background: var(--dark-surface);
+  border-top: 1px solid var(--dark-border);
+  border-bottom: 1px solid var(--dark-border);
   padding: 18px 0;
   overflow: hidden;
   white-space: nowrap;
@@ -588,11 +610,11 @@ nav {
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--tan);
+  color: var(--sand);
   margin: 0 28px;
 }
 
-.marquee-track span.dot { color: var(--bark); margin: 0 4px; font-size: 16px; vertical-align: middle; }
+.marquee-track span.dot { color: var(--dark-border); margin: 0 4px; font-size: 16px; vertical-align: middle; }
 
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -607,7 +629,7 @@ nav {
 }
 
 .brand-story {
-  background: var(--walnut);
+  background: var(--dark-bg);
   padding: 72px 56px;
   display: flex;
   flex-direction: column;
@@ -618,7 +640,7 @@ nav {
   font-size: 10px;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--bark);
+  color: var(--dark-muted);
   margin-bottom: 20px;
   font-weight: 400;
 }
@@ -626,7 +648,7 @@ nav {
 .brand-headline {
   font-family: 'DM Serif Display', serif;
   font-size: clamp(28px, 3vw, 42px);
-  color: var(--cream);
+  color: var(--dark-heading);
   line-height: 1.15;
   margin-bottom: 24px;
 }
@@ -639,7 +661,7 @@ nav {
 .brand-body {
   font-size: 14px;
   line-height: 1.7;
-  color: var(--sand);
+  color: var(--dark-text);
   max-width: 400px;
   font-weight: 300;
 }
@@ -707,7 +729,7 @@ nav {
 .trace-title {
   font-family: 'DM Serif Display', serif;
   font-size: 36px;
-  color: var(--espresso);
+  color: var(--walnut);
   margin-bottom: 12px;
 }
 
@@ -744,7 +766,7 @@ nav {
 .step-num {
   width: 48px;
   height: 48px;
-  background: var(--espresso);
+  background: var(--walnut);
   color: var(--cream);
   border-radius: 50%;
   display: flex;
@@ -760,7 +782,7 @@ nav {
 .step-title {
   font-family: 'DM Serif Display', serif;
   font-size: 16px;
-  color: var(--espresso);
+  color: var(--walnut);
   margin-bottom: 8px;
 }
 
@@ -773,7 +795,7 @@ nav {
 
 /* ── EMAIL CAPTURE ── */
 .capture {
-  background: var(--espresso);
+  background: var(--dark-bg);
   padding: var(--gap-xl) 56px;
   text-align: center;
 }
@@ -782,7 +804,7 @@ nav {
   font-size: 10px;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--bark);
+  color: var(--dark-muted);
   margin-bottom: 16px;
   font-weight: 400;
 }
@@ -790,19 +812,19 @@ nav {
 .capture-title {
   font-family: 'DM Serif Display', serif;
   font-size: clamp(28px, 4vw, 48px);
-  color: var(--cream);
+  color: #C09A6B;
   margin-bottom: 12px;
   line-height: 1.1;
 }
 
 .capture-title em {
   font-style: italic;
-  color: var(--tan);
+  color: #D6CCBA;
 }
 
 .capture-sub {
   font-size: 14px;
-  color: var(--bark);
+  color: var(--dark-text);
   margin-bottom: 36px;
   font-weight: 300;
 }
@@ -816,10 +838,10 @@ nav {
 
 .capture-input {
   flex: 1;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--dark-border);
   border-right: none;
-  color: var(--cream);
+  color: var(--dark-heading);
   font-family: 'DM Sans', sans-serif;
   font-size: 14px;
   padding: 14px 18px;
@@ -827,12 +849,13 @@ nav {
   border-radius: var(--radius) 0 0 var(--radius);
 }
 
-.capture-input::placeholder { color: var(--bark); }
+.capture-input::placeholder { color: var(--dark-muted); }
+.capture-input:focus { border-color: var(--tan); }
 
 .capture-submit {
-  background: var(--walnut);
-  border: 1px solid var(--walnut);
-  color: var(--cream);
+  background: #D6CCBA;
+  border: 1px solid #D6CCBA;
+  color: var(--espresso);
   font-family: 'DM Sans', sans-serif;
   font-size: 11px;
   letter-spacing: 0.16em;
@@ -841,9 +864,10 @@ nav {
   cursor: pointer;
   transition: background 0.2s;
   border-radius: 0 var(--radius) var(--radius) 0;
+  font-weight: 500;
 }
 
-.capture-submit:hover { background: var(--bark); }
+.capture-submit:hover { background: var(--cream); color: var(--espresso); }
 
 .capture-confirm {
   display: none;
@@ -852,9 +876,79 @@ nav {
   margin-top: 16px;
 }
 
+/* ── EMAIL POPUP ── */
+#popupOverlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(26,20,16,0.6);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+#popupOverlay.popup-visible {
+  opacity: 1; pointer-events: all;
+}
+.popup-card {
+  background: var(--parchment);
+  max-width: 440px; width: 100%;
+  padding: 48px 40px 40px;
+  position: relative;
+  border-radius: var(--radius);
+  text-align: center;
+}
+.popup-close {
+  position: absolute; top: 16px; right: 18px;
+  background: none; border: none; cursor: pointer;
+  font-size: 20px; color: var(--bark); line-height: 1;
+  padding: 4px 6px;
+}
+.popup-close:hover { color: var(--espresso); }
+.popup-eyebrow {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--bark); margin-bottom: 12px;
+}
+.popup-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.6rem, 5vw, 2rem);
+  color: var(--espresso); line-height: 1.2;
+  margin-bottom: 10px;
+}
+.popup-sub {
+  font-size: 13px; color: var(--walnut);
+  line-height: 1.6; margin-bottom: 28px;
+}
+#popupForm { display: flex; flex-direction: column; gap: 12px; }
+.popup-input {
+  width: 100%; padding: 13px 16px;
+  border: 1px solid var(--sand); border-radius: var(--radius);
+  background: var(--cream); color: var(--espresso);
+  font-family: 'DM Sans', sans-serif; font-size: 14px;
+  outline: none;
+}
+.popup-input:focus { border-color: var(--walnut); }
+.popup-btn {
+  width: 100%; padding: 14px;
+  background: var(--espresso); color: var(--cream);
+  border: none; border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  cursor: pointer; font-weight: 500;
+}
+.popup-btn:hover { background: var(--walnut); }
+#popupConfirm {
+  display: none;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem; color: var(--espresso);
+  padding: 12px 0;
+}
+.popup-legal {
+  font-size: 10px; color: var(--bark); margin-top: 12px;
+  letter-spacing: 0.05em;
+}
+
 /* ── FOOTER ── */
 footer {
-  background: var(--ink);
+  background: var(--espresso);
   padding: 56px 56px 32px;
 }
 
@@ -871,7 +965,7 @@ footer {
   font-family: 'DM Serif Display', serif;
   font-size: 22px;
   letter-spacing: 0.1em;
-  color: var(--cream);
+  color: #F5F0E8;
   margin-bottom: 12px;
   display: block;
 }
@@ -902,13 +996,13 @@ footer {
 
 .footer-links a {
   font-size: 13px;
-  color: var(--bark);
+  color: var(--dark-text);
   text-decoration: none;
   font-weight: 300;
   transition: color 0.2s;
 }
 
-.footer-links a:hover { color: var(--sand); }
+.footer-links a:hover { color: var(--tan); }
 
 .footer-bottom {
   display: flex;
@@ -918,7 +1012,7 @@ footer {
 
 .footer-copy {
   font-size: 11px;
-  color: var(--walnut);
+  color: var(--dark-text);
   letter-spacing: 0.1em;
 }
 
@@ -926,7 +1020,7 @@ footer {
   font-family: 'DM Serif Display', serif;
   font-size: 11px;
   letter-spacing: 0.22em;
-  color: var(--walnut);
+  color: var(--dark-text);
   font-style: italic;
 }
 
@@ -996,9 +1090,11 @@ footer {
 .cart-empty {
   text-align: center;
   padding: 60px 0;
-  color: var(--bark);
-  font-size: 14px;
+  color: var(--sand);
+  font-size: 13px;
   font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .cart-item {
@@ -1330,19 +1426,13 @@ footer {
   .nav-links { display: none; }
   .nav-right { grid-column: 2; }
 
-  /* Hero: stack text above visual */
-  .hero {
-    grid-template-columns: 1fr;
-    min-height: unset;
-  }
+  /* Hero: single-column, tighten padding on tablet */
   .hero-text {
     padding: 56px 24px 40px;
-    text-align: center;
-    align-items: center;
   }
   .hero-text h1 { font-size: clamp(2.4rem, 8vw, 4rem); }
   .hero-sub { font-size: 15px; max-width: 480px; }
-  .hero-cta { justify-content: center; }
+  .hero-actions { justify-content: center; }
   .hero-visual {
     min-height: 420px;
     padding: 32px 24px 48px;
@@ -1408,9 +1498,9 @@ footer {
   .hero-text h1 { font-size: clamp(2rem, 9vw, 3rem); }
   .hero-eyebrow { font-size: 9px; }
   .hero-sub { font-size: 14px; }
-  .hero-cta { flex-direction: column; gap: 10px; width: 100%; }
-  .hero-cta .btn-primary,
-  .hero-cta .btn-ghost {
+  .hero-actions { flex-direction: column; gap: 10px; width: 100%; }
+  .hero-actions .btn-primary,
+  .hero-actions .btn-ghost {
     width: 100%;
     justify-content: center;
     min-height: 48px;
@@ -1549,39 +1639,10 @@ footer {
   <div class="hero-text">
     <p class="hero-eyebrow">The Heavyweight, Natural Fiber Tee</p>
     <h1 class="hero-headline">Introducing<br><em>Something Better.</em></h1>
-    <p class="hero-body">One shirt. American cotton. Made in the USA. Built for people who know the difference.</p>
+    <p class="hero-body">One shirt. American cotton. Made in the USA.<br>For people who know the difference.</p>
     <div class="hero-actions">
       <a href="#waitlist"><button class="btn-primary" onclick="document.getElementById('waitlistInput').focus()">Join the Waitlist</button></a>
-      <button class="btn-ghost" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">See the Tee</button>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div class="hero-product-block">
-      <div class="tee-graphic" id="heroTee" style="background: #D6C9AE;"></div>
-      <div class="hero-launch-badge">Launching EARLY 2027</div>
-
-      <!-- INLINE CONFIGURATOR -->
-      <div class="hero-configurator">
-        <div class="hero-config-name">Heavyweight Tee</div>
-        <div class="hero-config-label">Color — <span id="heroColorName">Natural Cotton</span></div>
-        <div class="hero-swatches">
-          <div class="hero-swatch active" style="background:#D6C9AE;" data-color="#D6C9AE" data-name="Natural Cotton" onclick="heroSelectColor(this)" title="Natural Cotton"></div>
-          <div class="hero-swatch" style="background:#2A2A2A;" data-color="#2A2A2A" data-name="Faded Black" onclick="heroSelectColor(this)" title="Faded Black"></div>
-          <div class="hero-swatch" style="background:#1B2A3B;" data-color="#1B2A3B" data-name="Deep Navy" onclick="heroSelectColor(this)" title="Deep Navy"></div>
-        </div>
-
-        <div class="hero-config-label">Size</div>
-        <div class="hero-size-grid" id="heroSizeGrid">
-          <button class="hero-size-btn" onclick="heroSelectSize(this)">XS</button>
-          <button class="hero-size-btn" onclick="heroSelectSize(this)">S</button>
-          <button class="hero-size-btn" onclick="heroSelectSize(this)">M</button>
-          <button class="hero-size-btn" onclick="heroSelectSize(this)">L</button>
-          <button class="hero-size-btn" onclick="heroSelectSize(this)">XL</button>
-          <button class="hero-size-btn" onclick="heroSelectSize(this)">XXL</button>
-        </div>
-
-        <div style="text-align:center; padding: 10px 0; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tan); font-family: 'DM Sans', sans-serif;">Available Soon</div>
-      </div>
+      <button class="btn-ghost" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Preview the Tee</button>
     </div>
   </div>
 </section>
@@ -1592,7 +1653,7 @@ footer {
     <div class="pillar-icon">
       <!-- USA star -->
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M14 3 L15.8 9.2 L22 9.2 L17 13.2 L18.8 19.4 L14 15.4 L9.2 19.4 L11 13.2 L6 9.2 L12.2 9.2 Z" stroke="#C4B49A" stroke-width="1.2" stroke-linejoin="round" fill="none"/>
+        <path d="M14 3 L15.8 9.2 L22 9.2 L17 13.2 L18.8 19.4 L14 15.4 L9.2 19.4 L11 13.2 L6 9.2 L12.2 9.2 Z" stroke="#C8A97A" stroke-width="1.2" stroke-linejoin="round" fill="none"/>
       </svg>
     </div>
     <div class="pillar-label">Made in USA</div>
@@ -1601,12 +1662,12 @@ footer {
     <div class="pillar-icon">
       <!-- Cotton boll -->
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="14" cy="12" r="5.5" stroke="#C4B49A" stroke-width="1.2" fill="none"/>
-        <path d="M14 17.5 L14 25" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M14 21 C11 19 8.5 20 7 22" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-        <path d="M14 21 C17 19 19.5 20 21 22" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-        <path d="M11 9.5 C11 7 12 5 14 4.5" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-        <path d="M17 9.5 C17 7 16 5 14 4.5" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <circle cx="14" cy="12" r="5.5" stroke="#C8A97A" stroke-width="1.2" fill="none"/>
+        <path d="M14 17.5 L14 25" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M14 21 C11 19 8.5 20 7 22" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <path d="M14 21 C17 19 19.5 20 21 22" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <path d="M11 9.5 C11 7 12 5 14 4.5" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <path d="M17 9.5 C17 7 16 5 14 4.5" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
       </svg>
     </div>
     <div class="pillar-label">100% Cotton</div>
@@ -1616,11 +1677,11 @@ footer {
       <!-- Circular arrows / recycle -->
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <!-- Arrow 1: starts top-center, sweeps clockwise ~270deg, arrowhead points down-left -->
-        <path d="M14 7 A7 7 0 1 1 7 14" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-        <path d="M4.8 11.8 L7 14 L9.2 11.8" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 7 A7 7 0 1 1 7 14" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <path d="M4.8 11.8 L7 14 L9.2 11.8" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
         <!-- Arrow 2: starts bottom-center, sweeps clockwise ~270deg, arrowhead points up-right -->
-        <path d="M14 21 A7 7 0 1 1 21 14" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-        <path d="M23.2 16.2 L21 14 L18.8 16.2" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 21 A7 7 0 1 1 21 14" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <path d="M23.2 16.2 L21 14 L18.8 16.2" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
     <div class="pillar-label">Sustainably Made</div>
@@ -1629,21 +1690,56 @@ footer {
     <div class="pillar-icon">
       <!-- Fabric weave / texture lines -->
       <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 8 Q9 6 14 8 Q19 10 23 8" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-        <path d="M5 13 Q9 11 14 13 Q19 15 23 13" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-        <path d="M5 18 Q9 16 14 18 Q19 20 23 18" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-        <path d="M5 23 Q9 21 14 23 Q19 25 23 23" stroke="#C4B49A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <path d="M5 8 Q9 6 14 8 Q19 10 23 8" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <path d="M5 13 Q9 11 14 13 Q19 15 23 13" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <path d="M5 18 Q9 16 14 18 Q19 20 23 18" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+        <path d="M5 23 Q9 21 14 23 Q19 25 23 23" stroke="#C8A97A" stroke-width="1.2" stroke-linecap="round" fill="none"/>
       </svg>
     </div>
     <div class="pillar-label">Exceptional Feel</div>
   </div>
 </div>
 
+<!-- BRAND SPLIT -->
+<section class="brand-split" id="story">
+  <div class="brand-story">
+    <p class="brand-label">Why We Exist</p>
+    <h2 class="brand-headline">We saw<br><em>a problem.</em></h2>
+    <p class="brand-body" style="margin-bottom: 1.2em;">Most clothing is working against you.</p>
+    <p class="brand-body">The average wardrobe is full of synthetic fabric — polyester, nylon, spandex — marketed as performance, sold as premium, and priced like it. What most people don't know is that those same materials are endocrine disruptors. They interfere with your hormones. And you're wearing them all day.</p>
+    <p class="brand-body" style="margin-top: 1.2em;">DISCERN started as a simple refusal. We traced every link in the supply chain — from American-grown cotton fields to domestic mills to cut-and-sew shops stateside — and built a tee with nowhere left to cut corners. No imports. No synthetics. No compromise on how it feels.</p>
+    <p class="brand-body" style="margin-top: 1.2em;">This is a closet staple. Something you reach for because it can be dressed up, down, even sideways too if you want. We're building it for the person who already knows better — and for everyone else we can bring along.</p>
+  </div>
+  <div class="brand-stats">
+    <div class="stat-row">
+      <span class="stat-num">250+</span>
+      <div class="stat-detail">
+        <span class="stat-label">GSM Weight</span>
+        <span class="stat-desc">Heavyweight cotton that drapes and holds shape</span>
+      </div>
+    </div>
+    <div class="stat-row">
+      <span class="stat-num">100%</span>
+      <div class="stat-detail">
+        <span class="stat-label">Natural Fiber</span>
+        <span class="stat-desc">No blends. No synthetics. No compromise.</span>
+      </div>
+    </div>
+    <div class="stat-row">
+      <span class="stat-num">0</span>
+      <div class="stat-detail">
+        <span class="stat-label">Synthetic Fibers</span>
+        <span class="stat-desc">Cotton only — breathable, biodegradable, better</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRODUCTS -->
 <section class="products" id="products">
   <div class="section-header">
     <h2 class="section-title">Our Heavyweight Tee</h2>
-    <span class="section-sub">Coming Soon</span>
+
   </div>
   <div class="products-grid">
 
@@ -1686,6 +1782,37 @@ footer {
   </div>
 </section>
 
+<!-- TEE CONFIGURATOR (moved from hero) -->
+<div class="hero-visual" style="display:flex; justify-content:center; padding: 48px 24px; background: var(--parchment);">
+  <div class="hero-product-block">
+    <div class="tee-graphic" id="heroTee" style="background: #D6C9AE;"></div>
+    <div class="hero-launch-badge">Launching EARLY 2027</div>
+
+    <!-- INLINE CONFIGURATOR -->
+    <div class="hero-configurator">
+      <div class="hero-config-name">Heavyweight Tee</div>
+      <div class="hero-config-label">Color — <span id="heroColorName">Natural Cotton</span></div>
+      <div class="hero-swatches">
+        <div class="hero-swatch active" style="background:#D6C9AE;" data-color="#D6C9AE" data-name="Natural Cotton" onclick="heroSelectColor(this)" title="Natural Cotton"></div>
+        <div class="hero-swatch" style="background:#2A2A2A;" data-color="#2A2A2A" data-name="Faded Black" onclick="heroSelectColor(this)" title="Faded Black"></div>
+        <div class="hero-swatch" style="background:#1B2A3B;" data-color="#1B2A3B" data-name="Deep Navy" onclick="heroSelectColor(this)" title="Deep Navy"></div>
+      </div>
+
+      <div class="hero-config-label">Size</div>
+      <div class="hero-size-grid" id="heroSizeGrid">
+        <button class="hero-size-btn" onclick="heroSelectSize(this)">XS</button>
+        <button class="hero-size-btn" onclick="heroSelectSize(this)">S</button>
+        <button class="hero-size-btn" onclick="heroSelectSize(this)">M</button>
+        <button class="hero-size-btn" onclick="heroSelectSize(this)">L</button>
+        <button class="hero-size-btn" onclick="heroSelectSize(this)">XL</button>
+        <button class="hero-size-btn" onclick="heroSelectSize(this)">XXL</button>
+      </div>
+
+      <div style="text-align:center; padding: 10px 0; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--tan); font-family: 'DM Sans', sans-serif;">Available Soon</div>
+    </div>
+  </div>
+</div>
+
 <!-- MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
@@ -1703,41 +1830,6 @@ footer {
     <span>Heavyweight Tee</span><span class="dot">·</span>
   </div>
 </div>
-
-<!-- BRAND SPLIT -->
-<section class="brand-split" id="story">
-  <div class="brand-story">
-    <p class="brand-label">Why We Exist</p>
-    <h2 class="brand-headline">We saw<br><em>a problem.</em></h2>
-    <p class="brand-body" style="margin-bottom: 1.2em;">Most clothing is working against you.</p>
-    <p class="brand-body">The average wardrobe is full of synthetic fabric — polyester, nylon, spandex — marketed as performance, sold as premium, and priced like it. What most people don't know is that those same materials are endocrine disruptors. They interfere with your hormones. And you're wearing them all day.</p>
-    <p class="brand-body" style="margin-top: 1.2em;">DISCERN started as a simple refusal. We traced every link in the supply chain — from American-grown cotton fields to domestic mills to cut-and-sew shops stateside — and built a tee with nowhere left to cut corners. No imports. No synthetics. No compromise on how it feels.</p>
-    <p class="brand-body" style="margin-top: 1.2em;">This is a closet staple. Something you reach for because it can be dressed up, down, even sideways too if you want. We're building it for the person who already knows better — and for everyone else we can bring along.</p>
-  </div>
-  <div class="brand-stats">
-    <div class="stat-row">
-      <span class="stat-num">250+</span>
-      <div class="stat-detail">
-        <span class="stat-label">GSM Weight</span>
-        <span class="stat-desc">Heavyweight cotton that drapes and holds shape</span>
-      </div>
-    </div>
-    <div class="stat-row">
-      <span class="stat-num">100%</span>
-      <div class="stat-detail">
-        <span class="stat-label">Natural Fiber</span>
-        <span class="stat-desc">No blends. No synthetics. No compromise.</span>
-      </div>
-    </div>
-    <div class="stat-row">
-      <span class="stat-num">0</span>
-      <div class="stat-detail">
-        <span class="stat-label">Synthetic Fibers</span>
-        <span class="stat-desc">Cotton only — breathable, biodegradable, better</span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- TRACEABILITY -->
 <section class="trace" id="trace">
@@ -1780,12 +1872,27 @@ footer {
   <p class="capture-confirm" id="captureConfirm">You're on the list. We'll be in touch before the drop.</p>
 </section>
 
+<!-- EMAIL POPUP -->
+<div id="popupOverlay" role="dialog" aria-modal="true" aria-label="Join the waitlist">
+  <div class="popup-card">
+    <button class="popup-close" onclick="closePopup()" aria-label="Close">&times;</button>
+    <p class="popup-eyebrow">American-Made Staples For Your Wardrobe</p>
+    <h2 class="popup-headline">Be first.<br><em>Not early.</em></h2>
+    <p class="popup-sub">Join the DISCERN Bulletin — exclusive news + info and first access to all drops, before anyone else.</p>
+    <form id="popupForm" onsubmit="handlePopupSubmit(event)">
+      <input class="popup-input" id="popupEmail" type="email" placeholder="Your email address" required>
+      <button class="popup-btn" id="popupBtn" type="submit">Join the List</button>
+    </form>
+    <p id="popupConfirm">You're on the list.</p>
+    <p class="popup-legal">No spam. Unsubscribe anytime.</p>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
       <span class="footer-logo">DISCERN</span>
-      <p class="footer-tagline">100% natural fiber. American-made. Built for people who know the difference.</p>
     </div>
     <div>
       <p class="footer-col-title">Shop</p>
@@ -1802,12 +1909,6 @@ footer {
         <li><a href="#">Materials</a></li>
       </ul>
     </div>
-    <div>
-      <p class="footer-col-title">Info</p>
-      <ul class="footer-links">
-
-      </ul>
-    </div>
   </div>
   <div class="footer-bottom">
     <span class="footer-copy">© 2026 DISCERN. All rights reserved.</span>
@@ -1822,7 +1923,7 @@ footer {
     <button class="cart-close" onclick="closeCart()">×</button>
   </div>
   <div class="cart-items" id="cartItems">
-    <p class="cart-empty">Your bag is empty.</p>
+    <p class="cart-empty">nothing to add yet but it's on the way!</p>
   </div>
   <div class="cart-foot" id="cartFoot" style="display:none;">
     <div class="cart-subtotal">
@@ -1966,7 +2067,7 @@ function renderCart() {
   countEl.classList.toggle('visible', totalQty > 0);
 
   if (!cart.length) {
-    el.innerHTML = '<p class="cart-empty">Your bag is empty.</p>';
+    el.innerHTML = '<p class="cart-empty">nothing to add yet but it\'s on the way!</p>';
     foot.style.display = 'none';
     return;
   }
@@ -2067,11 +2168,70 @@ function showToast(msg) {
   t._timer = setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-function handleCapture(e) {
-  e.preventDefault();
+const KV_KEY = 'ScbcVg';
+const KV_LIST = 'VNNJ5i';
+
+async function klaviyoSubscribe(email) {
+  const res = await fetch('https://a.klaviyo.com/client/subscriptions/?company_id=' + KV_KEY, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'revision': '2023-12-15' },
+    body: JSON.stringify({
+      data: {
+        type: 'subscription',
+        attributes: {
+          list_id: KV_LIST,
+          email: email
+        }
+      }
+    })
+  });
+  return res.ok || res.status === 202;
+}
+
+function showCaptureConfirm() {
   document.querySelector('.capture-form').style.display = 'none';
   document.getElementById('captureConfirm').style.display = 'block';
 }
+
+async function handleCapture(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.capture-submit');
+  const email = document.getElementById('waitlistInput').value;
+  btn.textContent = '...';
+  btn.disabled = true;
+  try {
+    await klaviyoSubscribe(email);
+  } catch(_) {}
+  showCaptureConfirm();
+}
+
+async function handlePopupSubmit(e) {
+  e.preventDefault();
+  const btn = document.getElementById('popupBtn');
+  const email = document.getElementById('popupEmail').value;
+  btn.textContent = '...';
+  btn.disabled = true;
+  try {
+    await klaviyoSubscribe(email);
+  } catch(_) {}
+  document.getElementById('popupForm').style.display = 'none';
+  document.getElementById('popupConfirm').style.display = 'block';
+  setTimeout(closePopup, 2800);
+}
+
+function closePopup() {
+  const overlay = document.getElementById('popupOverlay');
+  overlay.classList.remove('popup-visible');
+  try { localStorage.setItem('discern_popup_seen', '1'); } catch(_) {}
+}
+
+// Show popup after 4s on first visit
+(function() {
+  try { if (localStorage.getItem('discern_popup_seen')) return; } catch(_) {}
+  setTimeout(() => {
+    document.getElementById('popupOverlay').classList.add('popup-visible');
+  }, 4000);
+})();
 
 // ── HERO CONFIGURATOR ──
 let heroColor = { hex: '#D6C9AE', name: 'Natural Cotton' };
@@ -2083,6 +2243,10 @@ function heroSelectColor(el) {
   heroColor = { hex: el.dataset.color, name: el.dataset.name };
   document.getElementById('heroTee').style.background = heroColor.hex;
   document.getElementById('heroColorName').textContent = heroColor.name;
+  // Tint config name to reflect swatch color
+  const colorMap = { '#D6C9AE': '#C4A882', '#2A2A2A': '#8A8A8A', '#1B2A3B': '#7A9AB5' };
+  const nameEl = document.querySelector('.hero-config-name');
+  if (nameEl) nameEl.style.color = colorMap[heroColor.hex] || '#CBBC9F';
 }
 
 function heroSelectSize(el) {
